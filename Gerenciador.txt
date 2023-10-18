@@ -1,0 +1,64 @@
+package program.gerenciador;
+
+/**
+ *
+ * @author User
+ */
+import java.util.Scanner;
+
+public class Gerenciador {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        Onibus onibus1 = new Onibus("ABC-123", "João", 5, "08:00", "Rio de Janeiro", "Aguardando partida");
+        Onibus onibus2 = new Onibus("DEF-456", "Maria", 5, "09:00", "São Paulo", "Aguardando partida");
+        Onibus onibus3 = new Onibus("GHI-789", "Carlos", 5, "10:00", "Curitiba", "Aguardando partida");
+
+        Onibus[] onibuses = {onibus1, onibus2, onibus3};
+
+        while (true) {
+            System.out.println("Informe o nome do passageiro:");
+            String nome = scanner.nextLine();
+
+            System.out.println("Informe o RG do passageiro:");
+            String rg = scanner.nextLine();
+
+            Passageiro passageiro = new Passageiro(nome, rg);
+
+            System.out.println("Escolha o ônibus:");
+            System.out.println("1. Ônibus 1 - Destino: Rio de Janeiro");
+            System.out.println("2. Ônibus 2 - Destino: São Paulo");
+            System.out.println("3. Ônibus 3 - Destino: Curitiba");
+
+            int escolhaOnibus = scanner.nextInt() - 1; // Subtrai 1 para a correspondência do índice da array
+            scanner.nextLine();  // Consome o '\n' do buffer após usar nextInt()
+
+            boolean assentoReservado = false;
+            while (!assentoReservado) {
+                System.out.println("Informe o assento desejado (0-4):");
+                int assentoDesejado = scanner.nextInt();
+                scanner.nextLine();  // Consome o '\n' do buffer após usar nextInt()
+
+                if (onibuses[escolhaOnibus].reservaAssento(assentoDesejado, passageiro)) {
+                    System.out.println("Assento reservado com sucesso no ônibus " + (escolhaOnibus + 1) + "!");
+                    passageiro.setAssento(assentoDesejado);
+                    assentoReservado = true;
+                } else {
+                    System.out.println("Assento já está ocupado! Por favor, escolha outro.");
+                }
+            }
+
+            System.out.println("\nAssentos do Ônibus " + (escolhaOnibus + 1) + ":");
+            onibuses[escolhaOnibus].imprimeAssentos();
+
+            System.out.println("\nDeseja reservar outro assento? (Digite 's' para sim ou qualquer outra tecla para sair)");
+            char choice = scanner.nextLine().charAt(0);
+            if (choice != 's' && choice != 'S') {
+                break;
+            }
+        }
+
+        System.out.println("\nObrigado por usar o nosso sistema de reservas!");
+        scanner.close();
+    }
+}

@@ -1,0 +1,29 @@
+package program.gerenciador;
+
+/**
+ *
+ * @author User
+ */
+public class Passageiro {
+    private String nome;
+    private String rg;
+    private int assentoDesignado;
+    private String status;
+
+    public Passageiro(String nome, String rg) {
+        this.nome = nome;
+        this.rg = rg;
+        this.assentoDesignado = -1;  // Valor padrão indicando que ainda não foi designado
+        this.status = "Aguardando";
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setAssento(int assento) {
+        this.assentoDesignado = assento;
+        this.status = "Assento designado";
+    }
+}
+

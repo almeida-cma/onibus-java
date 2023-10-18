@@ -1,0 +1,44 @@
+package program.gerenciador;
+
+/**
+ *
+ * @author User
+ */
+public class Onibus {
+    private String placa;
+    private String motorista;
+    private int qtdAssentos;
+    private String horarioPartida;
+    private String cidadeDestino;
+    private String status;
+    private Passageiro[] assentos; // Uma array para armazenar passageiros em assentos
+
+    public Onibus(String placa, String motorista, int qtdAssentos, String horarioPartida, String cidadeDestino, String status) {
+        this.placa = placa;
+        this.motorista = motorista;
+        this.qtdAssentos = qtdAssentos;
+        this.horarioPartida = horarioPartida;
+        this.cidadeDestino = cidadeDestino;
+        this.status = status;
+        this.assentos = new Passageiro[qtdAssentos]; // Inicializando a array de assentos
+    }
+
+    public boolean reservaAssento(int numAssento, Passageiro passageiro) {
+        if (assentos[numAssento] == null) {
+            assentos[numAssento] = passageiro;
+            return true;
+        }
+        return false;
+    }
+
+    public void imprimeAssentos() {
+        for (int i = 0; i < qtdAssentos; i++) {
+            if (assentos[i] != null) {
+                System.out.println("Assento " + i + ": " + assentos[i].getNome());
+            } else {
+                System.out.println("Assento " + i + ": Livre");
+            }
+        }
+    }
+}
+
